@@ -1,0 +1,3 @@
+[submodule "philo/libft"]
+	path = philo/libft
+	url = https://github.com/lxup/42Cursus-libft.git
