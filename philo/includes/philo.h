@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:21:21 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/04 18:14:45 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/04 21:44:23 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,12 @@ typedef struct s_philo
 }	t_philo;
 
 // INITS
-int 			init(t_philo **philos, int ac, char **av);
+int				init(t_philo **philos, int ac, char **av);
 
 // UTILS
 int				ft_error(int error, char *extra_msg, int show_usage);
 void			ft_print_state(t_philo *philo, char *str);
 void			ft_usleep(long long time_in_ms, t_config *config);
 long long int	get_timestamp(void);
-
 
 #endif

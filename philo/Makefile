@@ -25,8 +25,9 @@ SRCS 		= $(addprefix $(SRCS_DIR),\
 OBJS		= $(SRCS:.c=.o)
 
 CC			= cc
-RM			= rm -f
-CFLAGS	= -Wall -Wextra -Werror
+RM_DIR		= rm -rf
+RM_FILE		= rm -f
+CFLAGS		= -Wall -Wextra -Werror
 
 # LIBFT
 LIBFT_DIR	= ./libft
@@ -46,12 +47,12 @@ $(NAME):	$(OBJS) libft
 all: 		$(NAME)
 
 clean:
-			@$(RM) $(OBJS)
+			@$(RM_FILE) $(OBJS)
 			@$(MAKE_LIBFT) clean
 			@echo "${YELLOW}> All objects files of $(NAME) have been deleted ❌${END}"
 
 fclean:		clean
-			@$(RM) $(NAME)
+			@$(RM_FILE) $(NAME)
 			@$(MAKE_LIBFT) fclean
 			@echo "${YELLOW}> Cleaning of $(NAME) has been done ❌${END}"
 
