@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:21:21 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/04 21:44:23 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/04 23:32:15 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct s_config
 {
 	int				philo_count;
 	int				fork_count;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
 	int				eat_count;
 	long long int	start_time;
 	int				is_dead;
@@ -53,17 +53,22 @@ typedef struct s_philo
 {
 	int				pos;
 	int				eat_count;
-	long long int	time_last_meal;
+	long long int	t_meal;
 	pthread_t		thread;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	t_config		*config;
 }	t_philo;
 
+// MAIN
+void			ft_free(t_philo *philo, t_config *config, \
+					pthread_mutex_t *forks);
+
 // INITS
 int				init(t_philo **philos, int ac, char **av);
 
 // UTILS
+void			ft_destroy_mutex_array(pthread_mutex_t *mutex, int i);
 int				ft_error(int error, char *extra_msg, int show_usage);
 void			ft_print_state(t_philo *philo, char *str);
 void			ft_usleep(long long time_in_ms, t_config *config);

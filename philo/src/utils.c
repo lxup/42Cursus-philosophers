@@ -6,11 +6,20 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 18:24:42 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/04 18:24:43 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/04 23:31:56 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_destroy_mutex_array(pthread_mutex_t *mutex, int i)
+{
+	while (i >= 0)
+	{
+		pthread_mutex_destroy(&mutex[i]);
+		i--;
+	}
+}
 
 int	ft_error(int error, char *extra_msg, int show_usage)
 {
@@ -36,7 +45,7 @@ int	ft_error(int error, char *extra_msg, int show_usage)
 	}
 	if (show_usage)
 		ft_putstr_fd("Usage: ./philo number_of_philosophers "
-			"time_to_die time_to_eat time_to_sleep "
+			"t_die t_eat t_sleep "
 			"[number_of_times_each_philosopher_must_eat](optional)\n", 2);
 	return (0);
 }

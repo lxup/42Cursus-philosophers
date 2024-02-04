@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:03:58 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/04 18:25:19 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/04 23:31:56 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ void	*philo_life(void *args)
 		pthread_mutex_lock(philo->right_fork);
 		ft_print_state(philo, "has taken a fork");
 		ft_print_state(philo, "is eating");
-		ft_usleep(philo->config->time_to_eat, philo->config);
-		philo->time_last_meal = get_timestamp();
+		ft_usleep(philo->config->t_eat, philo->config);
+		philo->t_meal = get_timestamp();
 		pthread_mutex_unlock(philo->right_fork);
 		pthread_mutex_unlock(philo->left_fork);
 		if (!philo->config->is_dead)
 			philo->eat_count += 1;
 		ft_print_state(philo, "is sleeping");
-		ft_usleep(philo->config->time_to_sleep, philo->config);
+		ft_usleep(philo->config->t_sleep, philo->config);
 	}
 	return (0);
 }
@@ -50,7 +50,7 @@ void	*check_death(void *args)
 		philos_has_eaten = 0;
 		while (++i < philos->config->philo_count)
 		{
-			if (get_timestamp() - (philos + i)->time_last_meal > philos->config->time_to_die)
+			if (get_timestamp() - (philos + i)->t_meal > philos->config->t_die)
 			{
 				ft_print_state(philos + i, "died");
 				philos->config->is_dead = 1;
@@ -74,7 +74,7 @@ void	philo_start(t_philo *philos)
 	philos->config->start_time = get_timestamp();
 	while (++i < philos->config->philo_count)
 	{
-		(philos + i)->time_last_meal = get_timestamp();
+		(philos + i)->t_meal = get_timestamp();
 		if (pthread_create(&(philos + i)->thread, NULL, \
 			&philo_life, philos + i))
 			ft_error(THREAD_CREATE_ERR, NULL, 0);
@@ -86,10 +86,19 @@ void	philo_start(t_philo *philos)
 		ft_error(THREAD_CREATE_ERR, NULL, 0);
 	if (pthread_join(philos->config->check_death, NULL))
 		ft_error(THREAD_JOIN_ERR, NULL, 0);
-	i = -1;
-	while (++i < philos->config->fork_count)
-		pthread_mutex_destroy(&philos->config->mutex_fork[i]);
+	ft_destroy_mutex_array(philos->config->mutex_fork, \
+		philos->config->fork_count);
 	pthread_mutex_destroy(&philos->config->mutex_console);
+}
+
+void	ft_free(t_philo *philo, t_config *config, pthread_mutex_t *forks)
+{
+	if (forks)
+		free(forks);
+	if (config)
+		free(config);
+	if (philo)
+		free(philo);
 }
 
 int	main(int ac, char **av)
@@ -101,5 +110,5 @@ int	main(int ac, char **av)
 	if (!init(&philos, ac, av))
 		return (EXIT_FAILURE);
 	philo_start(philos);
-	return (0);
+	return (EXIT_SUCCESS);
 }
