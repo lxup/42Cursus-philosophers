@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:21:21 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/04 18:24:07 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/04 23:31:56 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ enum	e_errors
 typedef struct s_config
 {
 	int				philo_count;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
+	int				t_die;
+	int				t_eat;
+	int				t_sleep;
 	int				eat_count;
 	long			start_time;
 	int				dead_count;

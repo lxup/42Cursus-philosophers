@@ -39,21 +39,21 @@ int	init_config(t_config *config, int ac, char **av)
 	if (ac < 5 || ac > 6)
 	{
 		ft_error(ARGS_ERR, "Usage: ./philo number_of_philosophers "
-			"time_to_die time_to_eat time_to_sleep "
+			"t_die t_eat t_sleep "
 			"[number_of_times_each_philosopher_must_eat](optional)");
 		return (0);
 	}
 	config->philo_count = ft_atoi(av[1]);
-	config->time_to_die = ft_atoi(av[2]);
-	config->time_to_eat = ft_atoi(av[3]);
-	config->time_to_sleep = ft_atoi(av[4]);
+	config->t_die = ft_atoi(av[2]);
+	config->t_eat = ft_atoi(av[3]);
+	config->t_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		config->eat_count = ft_atoi(av[5]);
 	else
 		config->eat_count = -1;
 	config->dead_count = 0;
-	if (config->philo_count <= 0 || config->time_to_die < 0
-		|| config->time_to_eat < 0 || config->time_to_sleep < 0
+	if (config->philo_count <= 0 || config->t_die < 0
+		|| config->t_eat < 0 || config->t_sleep < 0
 		|| (ac == 6 && config->eat_count < 0))
 		return (0);
 	pthread_mutex_init(&(config->main_mutex), NULL);

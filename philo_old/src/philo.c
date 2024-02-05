@@ -19,7 +19,7 @@ int	check_philo_death(t_philo *philo, long current_time)
 	pthread_mutex_lock(&(philo->last_eat_mutex));
 	time_last_eat = current_time - philo->time_last_eat;
 	pthread_mutex_unlock(&(philo->last_eat_mutex));
-	if (time_last_eat > philo->config->time_to_die)
+	if (time_last_eat > philo->config->t_die)
 	{
 		pthread_mutex_lock(&(philo->config->main_mutex));
 		pthread_mutex_lock(&(philo->config->dead_mutex));
@@ -58,7 +58,7 @@ void	sleep_after_eating(t_philo *philo)
 	release_fork('r', philo);
 	release_fork('l', philo);
 	ft_print_state("is sleeping", philo);
-	ft_usleep(philo->config->time_to_sleep);
+	ft_usleep(philo->config->t_sleep);
 }
 
 void	*philo_life(void *data)
@@ -67,7 +67,7 @@ void	*philo_life(void *data)
 
 	philo = (t_philo *)data;
 	if (philo->pos % 2 != 0)
-		ft_usleep(philo->config->time_to_eat);
+		ft_usleep(philo->config->t_eat);
 	while (!is_philo_dead(philo))
 	{
 		if (philo->eat_count >= philo->config->eat_count
@@ -79,7 +79,7 @@ void	*philo_life(void *data)
 		if (philo->is_lf_taken && philo->is_rf_taken)
 		{
 			ft_print_state("is eating", philo);
-			ft_usleep(philo->config->time_to_eat);
+			ft_usleep(philo->config->t_eat);
 			philo->eat_count++;
 			pthread_mutex_lock(&(philo->last_eat_mutex));
 			philo->time_last_eat = get_timestamp() - philo->config->start_time;
