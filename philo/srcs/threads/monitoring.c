@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 22:52:25 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 23:26:41 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 00:09:50 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	philo_died(t_philo *philo)
 	pthread_mutex_lock(&philo->config->mutex_stop);
 	philo->config->stop = 1;
 	pthread_mutex_unlock(&philo->config->mutex_stop);
-	ft_print_state(philo, DEAD);
+	pthread_mutex_lock(&philo->config->mutex_console);
+	printf("%09lld %d %s", get_timestamp() - philo->config->start_time, philo->pos, DEAD);
+	pthread_mutex_unlock(&philo->config->mutex_console);
 }
 
 void	*monitoring(void *void_program)
@@ -35,6 +37,7 @@ void	*monitoring(void *void_program)
 			if (get_timestamp() - program->philos[i].t_meal >= program->config.t_die)
 			{
 				philo_died(&program->philos[i]);
+				pthread_mutex_unlock(&program->philos[i].mutex_t_meal);
 				return (NULL);
 			}
 			pthread_mutex_unlock(&program->philos[i].mutex_t_meal);
