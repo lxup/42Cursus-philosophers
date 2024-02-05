@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:21:21 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 23:52:05 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 00:14:53 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@
 # define FORK "has taken a fork\n"
 # define SLEEP "is sleeping\n"
 # define THINK "is thinking\n"
-# define ALL_EAT "All meals have been eaten"
 
 struct s_program;
 
