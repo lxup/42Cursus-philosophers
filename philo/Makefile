@@ -13,23 +13,26 @@ CYAN=$'\x1b[36m
 WHITE=$'\x1b[37m
 
 OS 			:= $(shell uname)
-SRCS_DIR	= ./src/
+VPATH		= srcs srcs/activities srcs/threads
 HEADER_DIR	= ./includes/
 OBJ_DIR 	= .obj
 
-SRCS 		= $(addprefix $(SRCS_DIR),\
-				main.c \
+SRCS 		= main.c \
+				exit.c \
 				init.c \
 				philo.c \
-				parsing.c \
-				utils.c )
+				utils.c \
+				thread.c \
+				monitoring.c \
+				go_eat.c \
+				go_sleep.c \
+				go_think.c
 
-OBJS		= $(SRCS:.c=.o)
+OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 CC			= cc
-RM_DIR		= rm -rf
-RM_FILE		= rm -f
-CFLAGS		= -Wall -Wextra -Werror -pthread -g3
+RM			= rm -rf
+CFLAGS		= -Wall -Wextra -Werror -pthread -fsanitize=thread -g3
 
 # LIBFT
 LIBFT_DIR	= ./libft
@@ -38,23 +41,26 @@ LIBFT_PATH	= $(LIBFT_DIR)/libft.a
 
 NAME		= philo
 
-.c.o:
-			@/bin/echo -n .
-			@$(CC) $(CFLAGS) -I $(HEADER_DIR) -c $< -o $(<:.c=.o)
+all: 		$(NAME)
 
-$(NAME):	$(OBJS) libft
+$(NAME):	${OBJ_DIR} $(OBJS) libft
 			@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_PATH) -o $(NAME)
 			@echo "\n${GREEN}> $(NAME) was successfuly compiled 🎉${END}"
 
-all: 		$(NAME)
+$(OBJ_DIR):
+			mkdir -p ${OBJ_DIR}
+
+$(OBJ_DIR)/%.o: %.c
+			@/bin/echo -n .
+			$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_DIR)
 
 clean:
-			@$(RM_FILE) $(OBJS)
+			@$(RM) $(OBJ_DIR)
 			@$(MAKE_LIBFT) clean
 			@echo "${YELLOW}> All objects files of $(NAME) have been deleted ❌${END}"
 
 fclean:		clean
-			@$(RM_FILE) $(NAME)
+			@$(RM) $(NAME)
 			@$(MAKE_LIBFT) fclean
 			@echo "${YELLOW}> Cleaning of $(NAME) has been done ❌${END}"
 

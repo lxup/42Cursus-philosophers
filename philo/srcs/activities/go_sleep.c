@@ -1,37 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   go_sleep.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/05 20:11:03 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 20:11:57 by lquehec          ###   ########.fr       */
+/*   Created: 2024/02/05 23:43:57 by lquehec           #+#    #+#             */
+/*   Updated: 2024/02/05 23:45:06 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	check_args(const char *str)
+int	go_sleep(t_philo *philo)
 {
-	long int	n;
-
-	while (*str == ' ' || *str == '\f' || *str == '\n' || \
-			*str == '\r' || *str == '\t' || *str == '\v')
-		str++;
-	n = 0;
-	if (*str == '-')
-		return (-1);
-	if (*str == '+')
-		str++;
-	while (ft_isdigit(*str))
-	{
-		n = n * 10 + *str - '0';
-		if (n > INT_MAX)
-			return (-1);
-		str++;
-	}
-	if (*str != '\0')
-		return (-1);
-	return ((int)n);
+	if (check_philo_died(philo->config) || check_all_eaten(philo->config->program))
+			return (set_philo_stop(philo), 0);
+	ft_print_state(philo, SLEEP);
+	ft_usleep(philo->config->t_sleep);
+	return (1);
 }
