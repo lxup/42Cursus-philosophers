@@ -20,6 +20,8 @@ OBJ_DIR 	= .obj
 SRCS 		= $(addprefix $(SRCS_DIR),\
 				main.c \
 				init.c \
+				philo.c \
+				parsing.c \
 				utils.c )
 
 OBJS		= $(SRCS:.c=.o)
@@ -27,7 +29,7 @@ OBJS		= $(SRCS:.c=.o)
 CC			= cc
 RM_DIR		= rm -rf
 RM_FILE		= rm -f
-CFLAGS		= -Wall -Wextra -Werror
+CFLAGS		= -Wall -Wextra -Werror -pthread -g3
 
 # LIBFT
 LIBFT_DIR	= ./libft

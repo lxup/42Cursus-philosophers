@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 18:24:42 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/04 23:31:56 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/05 19:48:13 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_destroy_mutex_array(pthread_mutex_t *mutex, int i)
+void	ft_destroy_mutex_array(t_philo *philos, int i)
 {
 	while (i >= 0)
 	{
-		pthread_mutex_destroy(&mutex[i]);
+		pthread_mutex_destroy(&philos[i].left_fork);
 		i--;
 	}
 }
 
-int	ft_error(int error, char *extra_msg, int show_usage)
+int	ft_error(int error, int show_usage)
 {
 	if (error)
 		ft_putstr_fd("Error: ", 2);
@@ -38,11 +38,6 @@ int	ft_error(int error, char *extra_msg, int show_usage)
 	if (error == THREAD_JOIN_ERR)
 		ft_putstr_fd("Thread join failed", 2);
 	ft_putstr_fd("\n", 2);
-	if (extra_msg)
-	{
-		ft_putstr_fd(extra_msg, 2);
-		ft_putstr_fd("\n", 2);
-	}
 	if (show_usage)
 		ft_putstr_fd("Usage: ./philo number_of_philosophers "
 			"t_die t_eat t_sleep "
@@ -52,30 +47,32 @@ int	ft_error(int error, char *extra_msg, int show_usage)
 
 void	ft_print_state(t_philo *philo, char *str)
 {
+	long long int	current_time;
+
+	current_time = -1;
+	current_time = get_timestamp() - philo->config->start_time;
 	pthread_mutex_lock(&(philo->config->mutex_console));
-	if (!philo->config->is_dead)
+	if (current_time >= 0 && !check_death(philo, 0))
 		printf("%09lld %d %s\n", \
-			get_timestamp() - philo->config->start_time, philo->pos, str);
+			current_time, philo->pos, str);
 	pthread_mutex_unlock(&(philo->config->mutex_console));
 }
 
-void	ft_usleep(long long time_in_ms, t_config *config)
+void	ft_usleep(long int time_in_ms)
 {
-	long long	t;
+	long int	current_time;
 
-	t = get_timestamp();
-	while (!config->is_dead)
-	{
-		if (get_timestamp() - t >= time_in_ms)
-			break ;
-		usleep(500);
-	}
+	current_time = 0;
+	current_time = get_timestamp();
+	while ((get_timestamp() - current_time) < time_in_ms)
+		usleep(time_in_ms / 10);
 }
 
 long long int	get_timestamp(void)
 {
 	struct timeval	tv;
 
-	gettimeofday(&tv, NULL);
-	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+	if (gettimeofday(&tv, NULL) == -1)
+		ft_error(GETTIME_ERR, 0);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
