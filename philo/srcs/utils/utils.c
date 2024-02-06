@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 18:24:42 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 18:04:05 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:02:09 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	ft_usleep(long int time_in_ms, t_program *program)
 		if (program->config.stop)
 		{
 			pthread_mutex_unlock(&program->config.mutex_stop);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&program->config.mutex_stop);
 		usleep(time_in_ms / 10);

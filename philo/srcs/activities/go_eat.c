@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:33:11 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 18:33:01 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 20:01:50 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	go_eat(t_philo *philo)
 	if (philo->pos % 2 == 0)
 		go_eat_even(philo);
 	else
-		if(!go_eat_odd(philo))
+		if (!go_eat_odd(philo))
 			return (set_philo_stop(philo), 0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:21:21 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 18:23:27 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:58:21 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <string.h>
 
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
@@ -27,12 +28,12 @@
 	t_die t_eat t_sleep \
 	[number_of_times_each_philosopher_must_eat](optional)\n"
 
-# define MEMORY_ERR "Error:\nMemory allocation failed\n"
-# define ARGS_ERR "Error:\nInvalid arguments\n"
-# define MUTEX_ERR "Error:\nMutex initialization failed\n"
-# define THREAD_CREATE_ERR "Error:\nThread creation failed\n"
-# define THREAD_JOIN_ERR "Error:\nThread join failed\n"
-# define GETTIME_ERR "Error:\nGet actual time failed\n"
+# define MEMORY_ERR "Error-> Memory allocation failed\n"
+# define ARGS_ERR "Error-> Invalid arguments\n"
+# define MUTEX_ERR "Error-> Mutex initialization failed\n"
+# define THREAD_CREATE_ERR "Error-> Thread creation failed\n"
+# define THREAD_JOIN_ERR "Error-> Thread join failed\n"
+# define GETTIME_ERR "Error-> Get actual time failed\n"
 
 /* Philosophers's activities */
 # define DEAD "died\n"

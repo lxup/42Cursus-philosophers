@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/02/06 19:51:48 by lquehec           #+#    #+#              #
+#    Updated: 2024/02/06 19:59:06 by lquehec          ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 # COLORS
 END=$'\x1b[0m
 BOLD=$'\x1b[1m
@@ -32,7 +44,7 @@ OBJS		= $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 CC			= cc
 RM			= rm -rf
-CFLAGS		= -Wall -Wextra -Werror -pthread -g3
+CFLAGS		= -Wall -Wextra -Werror -pthread -fsanitize=thread -g3
 
 NAME		= philo
 

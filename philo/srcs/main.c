@@ -6,12 +6,11 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:03:58 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 17:44:01 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 19:57:40 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-#include <string.h>
 
 static int	check_stop_state(t_program *program)
 {
