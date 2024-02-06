@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   go_eat.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:33:11 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 23:54:08 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 10:38:39 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ static void	go_eat_odd(t_philo *philo)
 
 int	go_eat(t_philo *philo)
 {
-	if (check_philo_died(philo->config) || check_all_eaten(philo->config->program))
-			return (set_philo_stop(philo), 0);
+	if (check_philo_died(philo->config) \
+		|| check_all_eaten(philo->config->program))
+		return (set_philo_stop(philo), 0);
 	if (philo->pos % 2 == 0)
 		go_eat_even(philo);
 	else

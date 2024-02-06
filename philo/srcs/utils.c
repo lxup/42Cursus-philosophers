@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 18:24:42 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 23:53:39 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 10:37:14 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	ft_print_state(t_philo *philo, char *str)
 	}
 	pthread_mutex_unlock(&philo->config->mutex_stop);
 	pthread_mutex_lock(&philo->config->mutex_console);
-	printf("%09lld %d %s", get_timestamp() - philo->config->start_time, philo->pos, str);
+	printf("%09lld %d %s", get_timestamp() - philo->config->start_time, \
+		philo->pos, str);
 	pthread_mutex_unlock(&philo->config->mutex_console);
 }
 

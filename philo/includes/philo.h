@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:21:21 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 00:14:53 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 10:42:48 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 # define INT_MAX 2147483647
 # define PHILO_COUNT_MAX 200
 
-# define USAGE "Usage->./philo number_of_philosophers " \
-			"t_die t_eat t_sleep " \
-			"[number_of_times_each_philosopher_must_eat](optional)\n"
+# define USAGE "Usage->./philo number_of_philosophers \
+	t_die t_eat t_sleep \
+	[number_of_times_each_philosopher_must_eat](optional)\n"
 
 # define MEMORY_ERR "Error:\nMemory allocation failed\n"
 # define ARGS_ERR "Error:\nInvalid arguments\n"
@@ -42,7 +42,7 @@
 # define SLEEP "is sleeping\n"
 # define THINK "is thinking\n"
 
-struct s_program;
+struct	s_program;
 
 typedef struct s_config
 {
@@ -81,7 +81,6 @@ typedef struct s_program
 	t_philo			*philos;
 }	t_program;
 
-
 // EXIT
 void			ft_exit(t_program *program, char *error, int mutex, int thread);
 int				destroy_thread(t_program *program, int count);
@@ -90,10 +89,8 @@ int				destroy_mutex(t_program *program, int count);
 // INIT
 int				init(t_program *program, int ac, char **av);
 
-// THREADS
-int				check_all_eaten(t_program *program);
-
 // PHILO
+int				check_all_eaten(t_program *program);;
 int				check_philo_died(t_config *config);
 void			*set_philo_stop(t_philo *philo);
 int				philo_start(t_program *program);
@@ -110,40 +107,5 @@ int				go_think(t_philo *philo);
 void			ft_print_state(t_philo *philo, char *str);
 void			ft_usleep(long int time_in_ms);
 long long int	get_timestamp(void);
-
-
-
-
-
-
-
-// MAIN
-// int				ft_finish(t_program *program, int exit_code);
-
-// // THREAD
-// int				philo_start(t_program *program);
-// void			*thread(void *data);
-
-// // PHILO
-// void			philo_life_odd(t_philo *philo);
-// void			philo_life_even(t_philo *philo);
-// void			philo_life(t_philo *philo);
-
-// // DEATH
-// void			*is_dead(void	*data);
-// int				check_death(t_philo *philo, int is_stop);
-
-// // INITS
-// int				init(t_program *program, int ac, char **av);
-
-// // PARSING
-// int				check_args(const char *str);
-
-// // UTILS
-// void			ft_destroy_mutex_array(t_philo *philos, int i);
-// int				ft_error(int error, int show_usage);
-// void			ft_print_state(t_philo *philo, char *str);
-// void			ft_usleep(long int time_in_ms);
-// long long int	get_timestamp(void);
 
 #endif

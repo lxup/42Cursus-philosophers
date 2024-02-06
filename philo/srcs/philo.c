@@ -3,16 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 20:51:18 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 23:53:04 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 10:37:58 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int		check_philo_died(t_config *config)
+int	check_all_eaten(t_program *program)
+{
+	int		i;
+	int		philos_has_eaten;
+
+	if (program->config.meals_count == -1)
+		return (0);
+	philos_has_eaten = 0;
+	i = -1;
+	while (++i < program->config.philo_count)
+	{
+		pthread_mutex_lock(&program->config.mutex_eat);
+		if (program->philos[i].meals_count >= program->config.meals_count)
+			philos_has_eaten++;
+		pthread_mutex_unlock(&program->config.mutex_eat);
+	}
+	if (philos_has_eaten == program->config.philo_count)
+		return (1);
+	return (0);
+}
+
+int	check_philo_died(t_config *config)
 {
 	int	result;
 

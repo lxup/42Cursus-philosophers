@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 18:24:34 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 23:23:23 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 10:36:02 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static int	init_mutex(t_program *program)
 	return (1);
 }
 
-
 static int	init_philos(t_program *program)
 {
 	int	i;
@@ -83,7 +82,7 @@ static int	init_philos(t_program *program)
 		program->philos[i].is_eating = 0;
 		program->philos[i].is_dead = 0;
 		program->philos[i].meals_count = 0;
-		program->philos[i].stop = 0; 
+		program->philos[i].stop = 0;
 		program->philos[i].right_fork = NULL;
 		if (pthread_mutex_init(&program->philos[i].left_fork, NULL))
 			return (ft_exit(program, MUTEX_ERR, 3, i), 0);

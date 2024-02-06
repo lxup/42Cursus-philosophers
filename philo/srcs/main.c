@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:03:58 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/05 22:46:00 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 10:44:55 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,12 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	if (!philo_start(&program))
 		return (EXIT_FAILURE);
-	while (1)
-	{
-		usleep(5000);
-		if (stop_philos(&program))
-			break ;
-	}
-	return (ft_exit(&program, NULL, 3, program.config.philo_count), EXIT_SUCCESS);
+	// while (1)
+	// {
+	// 	usleep(5000);
+	// 	if (stop_philos(&program))
+	// 		break ;
+	// }
+	return (ft_exit(&program, NULL, 3, program.config.philo_count), \
+		EXIT_SUCCESS);
 }

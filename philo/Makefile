@@ -13,8 +13,8 @@ CYAN=$'\x1b[36m
 WHITE=$'\x1b[37m
 
 OS 			:= $(shell uname)
-VPATH		= srcs srcs/activities srcs/threads
-HEADER_DIR	= ./includes/
+VPATH		= srcs srcs/activities
+HEADER_DIR	= includes
 OBJ_DIR 	= .obj
 
 SRCS 		= main.c \
@@ -22,7 +22,6 @@ SRCS 		= main.c \
 				init.c \
 				philo.c \
 				utils.c \
-				thread.c \
 				monitoring.c \
 				go_eat.c \
 				go_sleep.c \
@@ -48,11 +47,11 @@ $(NAME):	${OBJ_DIR} $(OBJS) libft
 			@echo "\n${GREEN}> $(NAME) was successfuly compiled 🎉${END}"
 
 $(OBJ_DIR):
-			mkdir -p ${OBJ_DIR}
+			@mkdir -p ${OBJ_DIR}
 
 $(OBJ_DIR)/%.o: %.c
 			@/bin/echo -n .
-			$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_DIR)
+			@$(CC) $(CFLAGS) -c $< -o $@ -I $(HEADER_DIR)
 
 clean:
 			@$(RM) $(OBJ_DIR)
