@@ -3,37 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 18:24:34 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 10:36:02 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 15:42:49 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	check_args(const char *str)
+static int	init_mutex_philo(t_philo *philo)
 {
-	long int	n;
-
-	while (*str == ' ' || *str == '\f' || *str == '\n' || \
-			*str == '\r' || *str == '\t' || *str == '\v')
-		str++;
-	n = 0;
-	if (*str == '-')
-		return (-1);
-	if (*str == '+')
-		str++;
-	while (ft_isdigit(*str))
-	{
-		n = n * 10 + *str - '0';
-		if (n > INT_MAX)
-			return (-1);
-		str++;
-	}
-	if (*str != '\0')
-		return (-1);
-	return ((int)n);
+	if (pthread_mutex_init(&philo->left_fork, NULL))
+		return (pthread_mutex_destroy(&philo->left_fork), 0);
+	if (pthread_mutex_init(&philo->mutex_stop, NULL))
+		return (pthread_mutex_destroy(&philo->left_fork), \
+		pthread_mutex_destroy(&philo->mutex_stop), 0);
+	if (pthread_mutex_init(&philo->mutex_t_meal, NULL))
+		return (pthread_mutex_destroy(&philo->left_fork), \
+		pthread_mutex_destroy(&philo->mutex_stop), \
+		pthread_mutex_destroy(&philo->mutex_t_meal), 0);
+	return (1);
 }
 
 static int	init_config(t_program *program, int ac, char **av)
@@ -84,8 +74,8 @@ static int	init_philos(t_program *program)
 		program->philos[i].meals_count = 0;
 		program->philos[i].stop = 0;
 		program->philos[i].right_fork = NULL;
-		if (pthread_mutex_init(&program->philos[i].left_fork, NULL))
-			return (ft_exit(program, MUTEX_ERR, 3, i), 0);
+		if (!init_mutex_philo(&program->philos[i]))
+			return (ft_exit(program, MUTEX_ERR, 3, i - 1), 0);
 		if (i == program->config.philo_count - 1)
 			program->philos[i].right_fork = &program->philos[0].left_fork;
 		else

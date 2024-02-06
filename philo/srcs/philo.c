@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 20:51:18 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 10:37:58 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 18:27:09 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	*philo_life(void *void_philo)
 
 	philo = (t_philo *)void_philo;
 	if (philo->pos % 2 == 0)
-		usleep(50);
+		usleep(philo->config->t_eat / 10);
 	while (!check_philo_died(philo->config))
 	{
 		if (!go_eat(philo))
@@ -82,8 +82,7 @@ int	philo_start(t_program *program)
 	{
 		if (pthread_create(&(program->philos[i].thread), NULL, \
 			philo_life, &program->philos[i]))
-			return (ft_exit(program, THREAD_CREATE_ERR, 3, \
-				program->config.philo_count), 0);
+			return (ft_exit(program, THREAD_CREATE_ERR, 3, i), 0);
 	}
 	pthread_create(&t_monitoring, NULL, monitoring, program);
 	pthread_join(t_monitoring, NULL);

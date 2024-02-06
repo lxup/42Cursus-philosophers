@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:03:58 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 10:44:55 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 17:44:01 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <string.h>
 
-int	stop_philos(t_program *program)
+static int	check_stop_state(t_program *program)
 {
 	int		i;
 	int		philos_stopped;
@@ -35,18 +36,19 @@ int	main(int ac, char **av)
 {
 	t_program	program;
 
+	memset(&program, 0, sizeof(program));
 	if (ac < 5 || ac > 6)
 		return (ft_exit(&program, ARGS_ERR, 0, 0), EXIT_FAILURE);
 	if (!init(&program, ac, av))
 		return (EXIT_FAILURE);
 	if (!philo_start(&program))
 		return (EXIT_FAILURE);
-	// while (1)
-	// {
-	// 	usleep(5000);
-	// 	if (stop_philos(&program))
-	// 		break ;
-	// }
+	while (1)
+	{
+		usleep(program.config.t_eat / 10);
+		if (check_stop_state(&program))
+			break ;
+	}
 	return (ft_exit(&program, NULL, 3, program.config.philo_count), \
 		EXIT_SUCCESS);
 }

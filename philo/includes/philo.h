@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:21:21 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 10:42:48 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/06 18:23:27 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-# include "../libft/libft.h"
 
 # define INT_MIN -2147483648
 # define INT_MAX 2147483647
@@ -41,6 +40,8 @@
 # define FORK "has taken a fork\n"
 # define SLEEP "is sleeping\n"
 # define THINK "is thinking\n"
+# define ALL_EATEN_MEALS "%09lld All philosophers has eaten their %d meals\n"
+# define ALL_EATEN_MEAL "%09lld All philosophers has eaten their %d meal\n"
 
 struct	s_program;
 
@@ -104,8 +105,16 @@ int				go_sleep(t_philo *philo);
 int				go_think(t_philo *philo);
 
 // UTILS
+int				check_args(const char *str);
 void			ft_print_state(t_philo *philo, char *str);
-void			ft_usleep(long int time_in_ms);
+void			ft_usleep(long int time_in_ms, t_program *program);
 long long int	get_timestamp(void);
+
+// LIBFT
+void			ft_putstr_fd(char *s, int fd);
+int				ft_strncmp(const char *s1, const char *s2, size_t len);
+size_t			ft_strlen(const char *s);
+int				ft_isdigit(int c);
+void			ft_putchar_fd(char c, int fd);
 
 #endif
