@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 21:50:47 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 15:48:17 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/08 09:37:47 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ int	destroy_mutex(t_program *program, int count)
 
 void	ft_exit(t_program *program, char *error, int mutex, int thread)
 {
+	pthread_mutex_lock(&program->config.mutex_stop);
+	if (program->config.stop == 0)
+		program->config.stop = 1;
+	pthread_mutex_unlock(&program->config.mutex_stop);
 	if (error)
 	{
 		ft_putstr_fd(error, 2);

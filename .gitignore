@@ -3,3 +3,4 @@
 *.out
 *.txt
 philo/philo
+.DS_Store
