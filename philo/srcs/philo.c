@@ -6,7 +6,7 @@
 /*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 20:51:18 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/08 09:39:04 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:40:39 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	*philo_life(void *void_philo)
 
 	philo = (t_philo *)void_philo;
 	if (philo->pos % 2 == 0)
-		usleep(philo->config->t_eat / 10);
+		ft_usleep(philo->config->t_eat / 10, philo->config->program);
 	while (!check_philo_died(philo->config))
 	{
 		if (!go_eat(philo))

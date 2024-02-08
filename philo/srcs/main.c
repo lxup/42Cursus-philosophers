@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lquehec <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 20:03:58 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 19:57:40 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/08 16:40:33 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av)
 		return (EXIT_FAILURE);
 	while (1)
 	{
-		usleep(program.config.t_eat / 10);
+		ft_usleep(program.config.t_eat / 10, &program);
 		if (check_stop_state(&program))
 			break ;
 	}
