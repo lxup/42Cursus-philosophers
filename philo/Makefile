@@ -6,7 +6,7 @@
 #    By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/06 19:51:48 by lquehec           #+#    #+#              #
-#    Updated: 2024/02/08 17:47:27 by lquehec          ###   ########.fr        #
+#    Updated: 2024/02/08 18:40:13 by lquehec          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ PURPLE=\x1b[35m
 CYAN=\x1b[36m
 WHITE=\x1b[37m
 
-OS 			:= $(shell uname)
 VPATH		= srcs srcs/activities srcs/utils
 HEADER_DIR	= includes
 OBJ_DIR 	= .obj

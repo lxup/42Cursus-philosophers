@@ -6,7 +6,7 @@
 /*   By: lquehec <lquehec@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/04 18:24:42 by lquehec           #+#    #+#             */
-/*   Updated: 2024/02/06 20:02:09 by lquehec          ###   ########.fr       */
+/*   Updated: 2024/02/08 18:35:03 by lquehec          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	ft_usleep(long int time_in_ms, t_program *program)
 			break ;
 		}
 		pthread_mutex_unlock(&program->config.mutex_stop);
-		usleep(time_in_ms / 10);
+		if (time_in_ms > 10000000)
+			usleep(time_in_ms / 100000);
+		else
+			usleep(time_in_ms / 10);
 	}
 }
 
